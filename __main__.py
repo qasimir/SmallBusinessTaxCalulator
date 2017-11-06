@@ -3,6 +3,7 @@ from Incomings import IncomingsForm as incomings
 from Outgoings import OutgoingsForm as outgoings
 from Settings import SettingsForm as settings
 from deleteIncomingWindow import deleteIncoming as deleteIncoming
+from deleteOutgoingWindow import deleteOutgoing as deleteOutgoing
 
 import csv
 
@@ -64,8 +65,10 @@ class mainWindow:
 
 
     def showOutgoings(self):
-        print(self.outgoingsdata[0])# need to cover the case where there are no incomings and/or blank vars
-        self.displayFrame.pack_forget()
+        # need to cover the case where there are no incomings and/or blank vars
+        self.displayFrame.destroy()
+        self.displayFrame = Frame(self.root, height=25)
+        self.displayFrame.pack()
         i=0
         for d in self.outgoingsdata:
             i+=1
@@ -76,7 +79,7 @@ class mainWindow:
 
     def deleteAnOutgoing(self):
         self.newWindow = Toplevel(self.root)
-        self.incomingsApp = deleteOutgoing(self.newWindow,self.outgoingsdata)
+        self.incomingsApp = deleteOutgoing(self.newWindow,self.outgoingsdata, self.displayFrame)
 
 
     def deleteAnIncoming(self):
@@ -91,7 +94,7 @@ class mainWindow:
 
     def new_outgoings_window(self):
         self.newWindow = Toplevel(self.root)
-        self.outgoingsApp = outgoings(self.newWindow)
+        self.outgoingsApp = outgoings(self.newWindow, self.outgoingsdata)
 
     def settings_window(self):
         self.newWindow = Toplevel(self.root)
